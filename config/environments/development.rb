@@ -54,7 +54,9 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.reload_classes_only_on_change = false
+#  config.reload_classes_only_on_change = false
+#  toegevoegd met heroku gepiel
+  config.middleware.delete Rack::Lock
 
   Paperclip.options[:command_path] = "/c/Windows/system32/convert/"
 end
