@@ -1,4 +1,5 @@
-class UsersController < ApplicationController
+class UsersController < Admin::BaseController
+# class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		@trainings = @user.trainings
