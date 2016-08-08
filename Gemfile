@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# toegevoegd obv heroku controller
+ruby '2.2.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
@@ -33,8 +35,9 @@ gem 'devise', '4.2.0'
 gem 'coffee-script-source', '1.8.0'
 gem 'toastr-rails'
 
-gem 'omniauth'
-gem 'omniauth-facebook'
+gem 'omniauth', '~> 1.3', '>= 1.3.1'
+gem 'omniauth-facebook', '~> 4.0'
+
 
 gem 'paperclip'
 
