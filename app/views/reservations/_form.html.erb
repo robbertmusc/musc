@@ -1,0 +1,73 @@
+<%= form_for ([@training, @training.reservations.new]) do |f| %>
+
+	<div class="row">
+		<div col="col-md-6">
+			<label>Datum</label><br>
+			<%= f.text_field :date, readonly: 'true', placeholder: 'Datum', class: 'form-control' %>			
+		</div>
+	</div>
+
+
+
+	<%= f.hidden_field :training_id, value: @training.id %>
+	<%= f.hidden_field :price, value: @training.tr_price %>
+
+	<div id="preview" style="display: none">
+		<h4><span id="message"></span></h4>
+
+		<table class="reservation-table">
+			<tbody>
+				<tr>
+					<td>Dag</td>
+					<td><span id="reservation_days"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<br>
+
+
+	<%= f.submit "Leg vast", class: "btn btn-primary" %>
+<% end %>
+
+<script>
+
+function unavailable(date) {
+
+	dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
+	return [$.inArray(dmy,unavailableDates) == -1]; 
+}
+
+$(function() {
+
+	unavailableDates = [];
+
+	$.ajax({
+		url: '/preload',
+		data: {'training_id': <%= @training.id %>},
+		dataType: 'json',
+		success: function(data) {
+
+			$.each(data, function(arrID, arrValue) {
+				for(var d = new Date(arrValue.date); 
+				d <= new Date(arrValue.date); 
+				d.setDate(d.getDate() +1)) {
+					unavailableDates.push($.datepicker.formatDate('d-m-yy', d));
+				}
+			});
+
+			$('#reservation_date').datepicker({
+				dateFormat: 'dd-mm-yy',
+				minDate: 0,
+				maxDate: '3m',
+				beforeShowDay: unavailable
+			});
+		}
+	});
+
+
+
+});
+
+</script>

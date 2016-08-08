@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  training: one
+  date: 
+  price: 1
+  total: 1
+
+two:
+  user: two
+  training: two
+  date: 
+  price: 1
+  total: 1

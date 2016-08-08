@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tr_type: MyString
+  tr_intensity: MyString
+  tr_description: MyText
+  tr_location: MyString
+  tr_time: MyString
+  tr_max_attendants: 1
+  tr_price: 1
+  tr_duration: 1
+  tr_gender: MyString
+  tr_active: false
+  user: one
+
+two:
+  tr_type: MyString
+  tr_intensity: MyString
+  tr_description: MyText
+  tr_location: MyString
+  tr_time: MyString
+  tr_max_attendants: 1
+  tr_price: 1
+  tr_duration: 1
+  tr_gender: MyString
+  tr_active: false
+  user: two

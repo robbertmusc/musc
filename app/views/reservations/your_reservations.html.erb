@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="sidebar-list">
+			<li class="sidebar-item"><%= link_to "Jouw lijst", trainings_path, class: "sidebar-link" %></li>
+			<li class="sidebar-item"><%= link_to "Jouw reserveringen", your_reservations_path, class: "sidebar-link active" %></li>
+			<li class="sidebar-item"><%= link_to "Jouw trainingen", your_trips_path, class: "sidebar-link" %></li>			
+		</ul>
+	</div>
+
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Jouw reserveringen </div>
+
+			<div class="panel-body">
+				<% @trainings.each do |training| %>
+
+					<% training.reservations.each do |reservation| %>
+						<div class="row">
+
+							<div class="col-md-2">
+								<%= reservation.date.strftime('%v') %>
+							</div>
+							<div class="col-md-6">
+								<%= link_to training_path(reservation.training) do %>
+								<% image_tag reservation.training.photos[0].image.url(:thumb) %>
+								<% end %>
+							</div>
+							<div class="col-md-2">
+								<%= link_to user_path(reservation.user) do %>
+								<%= image_tag avatar_url(reservation.user), class: "img-circle avatar-medium" %>
+								<% end %>
+							</div>
+							<div class="col-md-2 right">
+								<h4>€ <%= reservation.price %></h4>
+							</div>
+
+
+
+						</div>
+						<hr>
+				<% end %>
+
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
