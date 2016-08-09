@@ -36,11 +36,14 @@
               </li>
 
               <li>
-                <a href="#"><i class="fa fa-envelope-o"></i>  Berichten</a>
+                <%= link_to conversations_path do %><i class="fa fa-envelope-o"></i>  Berichten
+                <% end %>
               </li>
 
               <li>
-                <a href="#"><i class="fa fa-diamond fa-lg"></i>  Word trainer</a>
+                <%= link_to new_training_path do %>
+                <i class="fa fa-diamond fa-lg"></i>  Word trainer
+                <% end %>
               </li>              
             <% end %>
 
