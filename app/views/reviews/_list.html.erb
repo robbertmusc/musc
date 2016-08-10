@@ -7,17 +7,17 @@
 
 	<div class="row">
 		<div class="col-md-1">
-			%= image_tag avatar_url(r.user), class: "img-circle avatar-medium" %>
+			<%= image_tag avatar_url(r.user), class: "img-circle avatar-medium" %>
 		</div>
 		<div class="col-md-11">
 			<div>
-				<strong>%= r.user.fullname %> <%= r.star %></strong>
+				<strong><%= r.user.fullname %> <%= r.star %></strong>
 				<span class="pull-right">
 					<%= link_to "Remove my review", [@training, r], method: :delete, data: {confirm: "Are you sure?"} if current_user && current_user == r.user %>
 				</span>
 			</div>
 
-			<div> <%= r.created_at.strftime("%v") %></div>
+			<div><%= r.created_at.strftime("%v") %></div>
 			<div><%= r.comment %></div>
 
 		</div>
