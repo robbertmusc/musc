@@ -2,6 +2,7 @@ class Training < ApplicationRecord
   belongs_to :user
   has_many :photos
   has_many :reservations
+  has_many :reviews
 
   geocoded_by :tr_location
   after_validation :geocode, if:  :tr_location_changed?
@@ -17,6 +18,9 @@ class Training < ApplicationRecord
   validates :tr_duration, presence: true
   validates :tr_gender, presence: true
 
+  def average_rating
+    reviews.count == 0 ? 0 : reviews.average(:star).round(2)
+  end
 
 
 

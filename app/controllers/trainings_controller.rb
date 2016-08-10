@@ -9,6 +9,11 @@ class TrainingsController < ApplicationController
 
   def show
     @photos = @training.photos
+
+    @booked = Reservation.where("training_id = ? AND user_id = ?", @training.id, current_user.id).present? if current_user
+
+    @reviews = @training.reviews
+    @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
   end
 
   def new

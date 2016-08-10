@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160806170447) do
+ActiveRecord::Schema.define(version: 20160810150558) do
+
+  create_table "add_new_fields_to_reviews", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_add_new_fields_to_reviews_on_user_id"
+  end
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -50,6 +57,17 @@ ActiveRecord::Schema.define(version: 20160806170447) do
     t.datetime "updated_at",  null: false
     t.index ["training_id"], name: "index_reservations_on_training_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text     "comment"
+    t.integer  "star"
+    t.integer  "training_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.index ["training_id"], name: "index_reviews_on_training_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "trainings", force: :cascade do |t|
