@@ -121,6 +121,27 @@
 		</div>
  -->
 
+
+
+		<!-- Close by Rooms -->
+		<h3>Ook dichtbij</h3>
+		<div class="row">
+			<% for training in @training.nearbys(5) %>
+
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading preview">
+							<%=image_tag training.photos[0].image.url()  %>
+						</div>
+						<div class="panel-body">
+							<%= link_to training.tr_name, training %><br>
+							(<%= training.distance.round(1) %> miles away)
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+
 		<div class="row">
 			<div class="col-md-18 col-md-offset-1">
 
@@ -158,24 +179,6 @@
 
 			</div>
 		</div>
-
-		<!-- Close by Rooms -->
-		<h3>Ook dichtbij</h3>
-		<div class="row">
-			<% for training in @training.nearbys(5) %>
-
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading preview">
-							<%=image_tag training.photos[0].image.url()  %>
-						</div>
-						<div class="panel-body">
-							<%= link_to training.tr_name, training %><br>
-							(<%= training.distance.round(1) %> miles away)
-						</div>
-					</div>
-				</div>
-			<% end %>
-		</div>
+		
 	</div>
 </div>

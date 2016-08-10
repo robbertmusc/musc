@@ -1,4 +1,7 @@
-class Training < ApplicationRecord
+class Training < ActiveRecord::Base
+
+# was ApplicationRecord
+
   belongs_to :user
   has_many :photos
   has_many :reservations
@@ -21,9 +24,4 @@ class Training < ApplicationRecord
   def average_rating
     reviews.count == 0 ? 0 : reviews.average(:star).round(2)
   end
-
-
-
-
-
 end
