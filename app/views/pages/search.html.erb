@@ -1,77 +1,147 @@
 <div id="wrapper">
 	<div id="sidebar">
 		<div id="widget" class="sticky">
+
+				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiRstCee_M5mnbAKb4XRTDtaC80bwf-AQ&callback=initMap" async defer>
+			    </script>
+
+			    <script>
+			      function initMap() {
+			        // Create a map object and specify the DOM element for display.
+			        var map = new google.maps.Map(document.getElementById('widget'), {
+			        	<% if @arrTrainings.length > 0 %>
+			          center: {lat: <%= @arrTrainings[0].latitude %>, lng: <%= @arrTrainings[0].longitude %>},
+			          	<% else %>
+			          	center: {lat: 44.5403, lng: -78.5463},
+
+			          	<% end %>
+			          scrollwheel: false,
+			          zoom: 13
+			        });
+
+			        <% @arrTrainings.each do |training| %>
+
+			        var marker = new google.maps.Marker({
+			          position: {lat: <%= training.latitude %>, lng: <%= training.longitude %>},
+			          map: map,
+			          title: 'Training'
+			        });
+			        <% end %> 
+			      }
+
+			    </script>
+
 		</div>
 	</div>
 
 	<div id="article">
 		<div class="row">
-			<%= search_form @search, url: search_path do |f| %>
-			<div class="row">
-				<div class="col-md-3">
-					<%= text_field_tag :date, params[:date], placeholder: "Start Date", class: "form-control" %>
-				</div>
+			<div class="col-md-12">
 
-				<div class="col-md-3">
-						<%= text_field_tag :tr_price_lteq, placeholder: "Max Price", class: "form-control" %>
-				</div>
 
-			<div class="row">
-				<div class="col-md-4">
-					<%= check_box_tag "q[tr_intensity_eq_any][]", "Low" %> Low
-				</div>
-				<div class="col-md-4">
-					<%= check_box_tag "q[tr_intensity_eq_any][]", "Medium" %> Medium
-				</div>				
-				<div class="col-md-4">
-					<%= check_box_tag "q[tr_intensity_eq_any][]", "High" %> High
-				</div>
-			</div>
+				<%= search_form_for @search, url: search_path do |f| %>
+				<div class="row">
+					<div class="col-md-3">
+						<%= text_field_tag :search, params[:search], placeholder: "Waar ga je trainen?", class: "form-control" %>
+					</div>
 
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<label>Duur</label>
-						<%= f.select :tr_duration_qteq, [["45",45], ["60",60], ["75",75], ["90+",90]], prompt: "Select...", class: "form-control" %>
+					<div class="col-md-3">
+						<%= text_field_tag :date, params[:date], placeholder: "Date", class: "form-control" %>
+					</div>
+
+					<div class="col-md-3">
+						<%= f.text_field :tr_price_lteq, placeholder: "Max Price", class: "form-control" %>
 					</div>
 				</div>
-			</div>
 
-			<br>
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[tr_intensity_eq_any][]", "Low" %> Low
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[tr_intensity_eq_any][]", "Medium" %> Medium
+					</div>				
+					<div class="col-md-4">
+						<%= check_box_tag "q[tr_intensity_eq_any][]", "High" %> High
+					</div>
+				</div>
 
-			<div class="row">
-				<%= f.submit "Search", class: "btn btn-primary" %>
-			</div>
-
-			<% end %>
-
-			<hr>
-
-			<div class="row">
-			<% @arrTrainings.each do |training| %>
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading preview">
-							<%= image_tag training.photos[0].image.url(:medium) if training.photos.length > 0 %>
-						</div>
-						<div class="panel-body">
-							<%= link_to training.tr_name, training %>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Duur</label>
+							<%= f.select :tr_duration_gteq, [["45",45], ["60",60], ["75",75], ["90+",90]], prompt: "Select...", class: "form-control" %>
 						</div>
 					</div>
 				</div>
+
+				<br>
+
+				<div class="row">
+					<%= f.submit "Search", class: "btn btn-primary" %>
+				</div>
+
 				<% end %>
+
+				<hr>
+
+				<div class="row">
+				<% @arrTrainings.each do |training| %>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading preview">
+								<%= image_tag training.photos[0].image.url(:medium) if training.photos.length > 0 %>
+							</div>
+							<div class="panel-body">
+								<%= link_to training.tr_name, training %>
+							</div>
+						</div>
+					</div>
+				<% end %>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <script>
-	$(function){
+	$(function(){
 
 		$("#date").datepicker({
-			dateformat: 'dd-mm-yy',
+			dateFormat: 'dd-mm-yy',
 			minDate: 0,
-			maxDate: '3m',
-		})
-	}
-</script> 
+			maxDate: '3m'
+		});
+	})
+</script>
+
+<!-- kaart mee laten schuiven, werkt nog niet 
+
+<script>
+	
+	$(function(){ // document ready
+ 
+	  if (!!$('.sticky').offset()) { // make sure ".sticky" element exists
+	 
+	    var stickyTop = $('.sticky').offset().top; // returns number 
+	 
+	    $(window).scroll(function(){ // scroll event
+	 
+	      var windowTop = $(window).scrollTop(); // returns number 
+	 
+	      if (stickyTop < windowTop){
+	        $('.sticky').css({ position: 'fixed', top: 0 });
+	      }
+	      else {
+	        $('.sticky').css('position','static');
+	      }
+	 
+	    });
+	 
+	  }
+	 
+	});
+
+</script>
+
+-->

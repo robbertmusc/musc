@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-  	@trainings = Training.all
+  	@trainings = Training.limit(1)
   end
 
   def search
@@ -12,13 +12,14 @@ class PagesController < ApplicationController
   	arrResult = Array.new
 
   	if session[:loc_search] && session[:loc_search] != ""
-  		@trainings_tr_location = Training.where(active: true).near(session[:loc_search], 5, order: 'distance')
+  		@trainings_tr_location = Training.where(tr_active: true).near(session[:loc_search], 5, order: 'distance')
   	else
-  		@training_tr_location = Training.where(active: true).all
+  		@trainings_tr_location = Training.where(tr_active: true).all
   	end
 
   	@search = @trainings_tr_location.ransack(params[:q])
   	@trainings = @search.result
+
   	@arrTrainings = @trainings.to_a
 
   	if (params[:date] && !params[:date].empty?)
