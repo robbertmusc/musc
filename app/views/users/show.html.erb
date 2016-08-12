@@ -40,5 +40,27 @@
 				</div>
 			</div>
 			<% end %>
+
+		<h4>Reviews</h4><br>
+
+		<% @trainings.each do |training| %>
+		<% if !training.reviews.blank? %>
+		<% training.reviews.each do |review| %>
+		<div class="row">
+			<div class="col-md-2 text-center">
+				<%= image_tag avatar_url(review.user), class: "img-circle avatar-medium" %><br>
+				<%= review.user.fullname %>
+			</div>
+			<div class="col-md-10">
+				<%= link_to training.tr_name, training %><br>
+				<%= review.comment %><br>
+				<%= review.created_at.strftime("%v") %>
+			</div>
+		</div>
+		<% end %>
+		<% end %>
+		<% end %>
+
+
 	</div>
 </div>
