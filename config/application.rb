@@ -6,7 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-config.serve_static_assets = true
+# tip van stackoverflow maar lijkt niet echt te werken
+# config.serve_static_assets = true
 
 module Musc
   class Application < Rails::Application
