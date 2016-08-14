@@ -41,6 +41,8 @@ gem 'omniauth-facebook', '~> 4.0'
 
 gem 'paperclip'
 
+gem "rmagick"
+
 gem 'geocoder'
 
 gem 'jquery-ui-rails'
