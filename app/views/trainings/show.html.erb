@@ -126,14 +126,16 @@
 
 
 		<h3>Ook dichtbij</h3>
-		<% if false %>
+
 		<div class="row">
 			<% for training in @training.nearbys(5) %>
 
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-heading preview">
-							<%= image_tag training.photos[0].image.url() %>
+
+							<%= image_tag training.photos[0].image.url(:medium) if training.photos.length > 0 %>
+
 						</div>
 						<div class="panel-body">
 							<%= link_to training.tr_name, training %><br>
@@ -144,12 +146,13 @@
 			<% end %>
 		</div>
 
+		<% if false %>
 		<% end %>
 	
 		<h3>Foto's</h3>
 
 		<div class="row">
-			<div class="col-md-18 col-md-offset-1">
+			<div class="col-md-12">
 
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 				  <!-- Indicators -->
