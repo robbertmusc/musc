@@ -58,7 +58,7 @@ Rails.application.configure do
 #  toegevoegd met heroku gepiel
   config.middleware.delete Rack::Lock
 
-#  Paperclip.options[:command_path] = 'C:/GnuWin32/bin; C:/ImageMagick'
+  Paperclip.options[:command_path] = 'C:/GnuWin32/bin; C:/ImageMagick'
 #  Paperclip.options[:swallow_stderr] = false
 
 end

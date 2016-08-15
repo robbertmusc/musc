@@ -1,4 +1,4 @@
-class Photo < ApplicationRecord
+class Photo < ActiveRecord::Base
   belongs_to :training
 
   has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }
