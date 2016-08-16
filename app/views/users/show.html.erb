@@ -24,6 +24,7 @@
 			<%= @user.description %>
 		</div>
 
+		<div class="row">
 		<h4>Trainingen (<%= @trainings.length %>)</h4><br>
 
 			<% @trainings.each do |training| %>
@@ -31,7 +32,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading preview">
 						
-						%= image_tag training.photos[0].image.url(:medium) %>
+						<%= image_tag training.photos[0].image.url(:medium) if training.photos.length > 0 %>
 						
 					</div>
 					<div class="panel-body">
@@ -40,26 +41,29 @@
 				</div>
 			</div>
 			<% end %>
+		</div>
 
+		<div class="row">
 		<h4>Reviews</h4><br>
-
 		<% @trainings.each do |training| %>
 		<% if !training.reviews.blank? %>
 		<% training.reviews.each do |review| %>
-		<div class="row">
-			<div class="col-md-2 text-center">
-				<%= image_tag avatar_url(review.user), class: "img-circle avatar-medium" %><br>
-				<%= review.user.fullname %>
+			<div class="row">
+				<div class="col-md-2 text-center">
+					<%= image_tag avatar_url(review.user), class: "img-circle avatar-medium" %><br>
+					<%= review.user.fullname %>
+				</div>
+				<div class="col-md-10">
+					<%= link_to training.tr_name, training %><br>
+					<%= review.comment %><br>
+					<%= review.created_at.strftime("%v") %>
+				</div>				
 			</div>
-			<div class="col-md-10">
-				<%= link_to training.tr_name, training %><br>
-				<%= review.comment %><br>
-				<%= review.created_at.strftime("%v") %>
-			</div>
+			<hr>
+		<% end %>
+		<% end %>
+		<% end %>
 		</div>
-		<% end %>
-		<% end %>
-		<% end %>
 
 
 	</div>

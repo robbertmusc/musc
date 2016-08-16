@@ -40,7 +40,7 @@ class TrainingsController < ApplicationController
 
   def edit
     if current_user.id == @training.user.id
-        @photo = @training.photos
+        @photos = @training.photos
       else
         redirect_to root_path, notice: "Je hebt hier helaas geen toegang tot"
       end
