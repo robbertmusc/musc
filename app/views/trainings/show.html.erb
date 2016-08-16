@@ -134,7 +134,9 @@
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-heading preview">
-							<%= image_tag training.photos[0].image.url() if training.photos.length > 0 %>
+
+							<%= image_tag training.photos[0].image.url(:medium) if training.photos.length > 0 %>
+
 						</div>
 						<div class="panel-body">
 							<%= link_to training.tr_name, training %><br>
@@ -144,6 +146,10 @@
 				</div>
 			<% end %>
 		</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6678865a97286269601687c16c4656076873507
 		<% if false %>
 		<% end %>
 	

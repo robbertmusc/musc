@@ -41,7 +41,7 @@ gem 'omniauth-facebook', '~> 4.0'
 
 gem 'paperclip'
 
-# gem 'rmagick'
+
 
 gem 'geocoder'
 
@@ -67,6 +67,7 @@ end
 group :production do
 	gem 'pg'
 	gem 'rails_12factor'
+	gem 'rmagick'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
