@@ -19,12 +19,15 @@
 						<div class="col-md-2">
 							<%= image_tag training.photos[0].image.url(:thumb) if training.photos.length > 0 %>
 						</div>
-						<div class="col-md-7">
+						<div class="col-md-6">
 							<h4><%= training.tr_name %></h4>
 						</div>
-						<div class="col-md-3 right">
+						<div class="col-md-2">
 							<%= link_to "Update", edit_training_path(training), class: "btn btn-primary" %>
 						</div>
+						<div class="col-md-2">
+							<%= link_to "Thrills", new_training_thrill_path(training), class: "btn btn-primary" %>
+						</div>						
 
 					</div>
 					<hr>

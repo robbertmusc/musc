@@ -1,4 +1,5 @@
 class TrainingsController < ApplicationController
+
   before_action :set_training, only: [:show, :edit, :update]
   before_action :authenticate_user!, except: [:show]
 
@@ -9,6 +10,7 @@ class TrainingsController < ApplicationController
 
   def show
     @photos = @training.photos
+#   @thrills =@training.thrills
 
     @booked = Reservation.where("training_id = ? AND user_id = ?", @training.id, current_user.id).present? if current_user
 
@@ -22,7 +24,7 @@ class TrainingsController < ApplicationController
 
   def create
     @training = current_user.trainings.build(training_params)
-  
+       
     if @training.save
 
       if params[:images]
@@ -32,6 +34,7 @@ class TrainingsController < ApplicationController
       end
 
       @photos = @training.photos
+
       redirect_to edit_training_path(@training), notice: "Saved..."
     else
       render :new
@@ -41,6 +44,8 @@ class TrainingsController < ApplicationController
   def edit
     if current_user.id == @training.user.id
         @photos = @training.photos
+#       @thrill = @training.thrills.create(thrill_params)
+#       @thrills = @training.thrills
       else
         redirect_to root_path, notice: "Je hebt hier helaas geen toegang tot"
       end
@@ -52,10 +57,14 @@ class TrainingsController < ApplicationController
           if params[:images]
             params[:images].each do |image|
               @training.photos.create(image: image)
-        end
-      end
+            end
+          end
+
+#         @thrill = @training.thrills.create(thrill_params)
+#         @thrills = @training.thrills
 
           @photos = @training.photos
+
           redirect_to edit_training_path(@training), notice: "Updated..."
         else
           render:edit

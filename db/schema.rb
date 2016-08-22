@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810150558) do
+ActiveRecord::Schema.define(version: 20160819152604) do
 
   create_table "add_new_fields_to_reviews", force: :cascade do |t|
     t.integer  "user_id"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20160810150558) do
     t.integer  "total"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "thrill_id"
+    t.index ["thrill_id"], name: "index_reservations_on_thrill_id"
     t.index ["training_id"], name: "index_reservations_on_training_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
@@ -68,6 +70,16 @@ ActiveRecord::Schema.define(version: 20160810150558) do
     t.integer  "user_id"
     t.index ["training_id"], name: "index_reviews_on_training_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "thrills", force: :cascade do |t|
+    t.integer  "training_id"
+    t.date     "thrilldate"
+    t.integer  "thrillhr"
+    t.integer  "thrillmin"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["training_id"], name: "index_thrills_on_training_id"
   end
 
   create_table "trainings", force: :cascade do |t|
@@ -88,6 +100,16 @@ ActiveRecord::Schema.define(version: 20160810150558) do
     t.float    "latitude"
     t.float    "longitude"
     t.index ["user_id"], name: "index_trainings_on_user_id"
+  end
+
+  create_table "trsessions", force: :cascade do |t|
+    t.integer  "training_id"
+    t.date     "tr_date"
+    t.integer  "tr_timehrs"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "tr_timemin"
+    t.index ["training_id"], name: "index_trsessions_on_training_id"
   end
 
   create_table "users", force: :cascade do |t|

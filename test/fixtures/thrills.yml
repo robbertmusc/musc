@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  training: one
+  thrilldate: 2016-08-16
+  thrillhr: 1
+  thrillmin: 1
+
+two:
+  training: two
+  thrilldate: 2016-08-16
+  thrillhr: 1
+  thrillmin: 1

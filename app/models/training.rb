@@ -6,6 +6,8 @@ class Training < ActiveRecord::Base
   has_many :photos
   has_many :reservations
   has_many :reviews
+  has_many :thrills
+  has_many :users, through: :thrills
 
   geocoded_by :tr_location
   after_validation :geocode, if:  :tr_location_changed?
