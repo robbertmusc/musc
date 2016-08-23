@@ -15,7 +15,7 @@ before_action :set_thrill!, only: [:show, :edit, :update, :destroy]
 # => voor de lijst
 	    @thrills = @training.thrills
 	  else
-        redirect_to root_path, notice: "Je hebt hier helaas geen toegang tot"
+        redirect_to root_path, notice: "Geen toegang"
       end
 	end
 

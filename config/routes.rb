@@ -17,13 +17,12 @@ Rails.application.routes.draw do
   resources :trainings
   resources :photos
 
-
   resources :trainings do
-  	resources :reservations, only: [:create]
+    resources :thrills, shallow: true
   end
 
-  resources :trainings do
-    resources :thrills
+  resources :thrills do
+    resources :reservations, only: [:create]
   end
 
   resources :conversations, only: [:index, :create] do

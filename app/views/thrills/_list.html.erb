@@ -9,21 +9,21 @@
 			<div class="panel-body">
 
 				<% @thrills.each do |thrill| %>
-				<% if thrill.present? %>
 					<div class="row">
-
-						<div class="col-md-7">
+						<div class="col-md-3">
 							<%= thrill.thrilldate.strftime("%a %e %b '%y") %> <%= thrill.thrillhr %>:<%= thrill.thrillmin %>
 						</div>
+						<div class="col-md-2">
+							<%= thrill.reservations.length %> / <%= thrill.training.tr_max_attendants %>
+						</div>						
 						<div class="col-md-3 right">
 							<span class="pull-right">
-								<%= link_to "Delete", [@training,thrill] , method: :delete, data: {confirm: "Zeker weten?"} %>
+								<%= link_to "Delete", [thrill] , method: :delete, data: {confirm: "Zeker weten?"} %>
 							</span>
 						</div>
 
 					</div>
 					<hr>
-				<% end %>
 				<% end %>
 			</div>
 		</div>

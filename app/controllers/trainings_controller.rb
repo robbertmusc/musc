@@ -2,6 +2,7 @@ class TrainingsController < ApplicationController
 
   before_action :set_training, only: [:show, :edit, :update]
   before_action :authenticate_user!, except: [:show]
+#  around_action :set_booked, only: [:show]
 
 
   def index
@@ -10,12 +11,26 @@ class TrainingsController < ApplicationController
 
   def show
     @photos = @training.photos
-#   @thrills =@training.thrills
+    @thrills = @training.thrills
+#    @thrill = Thrill.find(params[thrill_id])
 
-    @booked = Reservation.where("training_id = ? AND user_id = ?", @training.id, current_user.id).present? if current_user
 
-    @reviews = @training.reviews
-    @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
+
+
+
+# => te repareren. Voor iedere thrill moet de check gemaakt worden of de gebruiker al is ingeschreven
+
+
+#   @booked = Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? if current_user
+
+#   @thrills.each do |thrill|
+
+#      thrill.booked = Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? if current_user
+
+#   end
+
+#   @reviews = @training.reviews
+#   @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
   end
 
   def new
@@ -79,6 +94,10 @@ class TrainingsController < ApplicationController
 
     def training_params
       params.require(:training).permit(:tr_type, :tr_intensity, :tr_name, :tr_description, :tr_location, :tr_time, :tr_max_attendants, :tr_price, :tr_duration, :tr_gender, :tr_active)
-
     end
+
+#    def set_booked
+#      @booked = Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? if current_user
+#    end
+
 end

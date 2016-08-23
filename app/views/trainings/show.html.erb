@@ -47,14 +47,15 @@
 					</div>
 				</div>
 			</div>
+			<% if false %>
 			<div class="col-md-3">
 			<!-- Reservation form -->
 				<%= render 'reservations/form' %>
 			</div>
+			<% end %>
 		</div>
 
-
-
+		<!-- About -->
 		<div class="row">
 			<div class="col-md-12">
 				<h2>Over deze training</h2>
@@ -62,6 +63,7 @@
 			</div>
 		</div>
 
+		<% if false %>
 		<!-- Reviews -->
 		<div class="row">
 			<div class="col-md-12">
@@ -77,9 +79,7 @@
 				</div>
 			</div>
 		</div>
-
-
-
+		<% end %>
 
 		<!-- Google Map -->
 		<div class="row">
@@ -93,8 +93,6 @@
 				</style>
 
 				<div id="map"></div>
-
-
 
 			    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiRstCee_M5mnbAKb4XRTDtaC80bwf-AQ&callback=initMap" async defer>
 			    </script>
@@ -116,21 +114,13 @@
 			      }
 
 			    </script>
-
-
 			</div>
 		</div>
 
-
-
 		<!-- Close by Rooms -->
-
-
 		<h3>Ook dichtbij</h3>
-
 		<div class="row">
 			<% for training in @training.nearbys(5) %>
-
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-heading preview">
@@ -146,15 +136,9 @@
 				</div>
 			<% end %>
 		</div>
-<<<<<<< HEAD
-=======
 
->>>>>>> d6678865a97286269601687c16c4656076873507
-		<% if false %>
-		<% end %>
-	
+		<!-- Foto caroussel -->
 		<h3>Foto's</h3>
-
 		<div class="row">
 			<div class="col-md-12">
 
@@ -193,6 +177,54 @@
 			</div>
 		</div>
 
+		<br>
+
+		<!-- Reserveringen -->
+		<h3>Reserveringen</h3>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Beschikbare thrills
+					</div>
+
+					<div class="panel-body">
+
+						<% @thrills.each do |thrill| %>
+							<div class="row">
+								<div class="col-md-5">
+									<%= thrill.thrilldate.strftime("%a %e %b '%y") %> <%= thrill.thrillhr %>:<%= thrill.thrillmin %>
+								</div>
+								<div class="col-md-2">
+									<%= thrill.reservations.length %> / <%= thrill.training.tr_max_attendants %>
+								</div>
+								
+
+								<div class="col-md-3 right">
+								<% if Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? %>	
+									Al geboekt
+								<% elsif thrill.reservations.length == thrill.training.tr_max_attendants %>
+									Vol
+
+								<% else %>
+									<%= link_to "Inschrijven", thrill_reservations_path(thrill), method: :post , class: "btn btn-primary" %>
+								<% end %>
+
+									<% if false %>
+										<%= form_for ([thrill, thrill.reservations]) do |f| %>
+											<%= f.hidden_field :user_id, value: current_user.id %>
+											<%= f.hidden_field :thrill_id, value: thrill.id %>
+											<%= f.submit "Leg vast", class: "btn btn-primary" %>
+										<% end %>
+									<% end %>
+								</div>
+							</div>
+							<hr>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
