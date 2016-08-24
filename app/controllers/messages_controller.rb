@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
 			@other = current_user == @conversation.sender ? @conversation.recipient : @conversation.sender
 			@messages = @conversation.messages.order("created_at DESC")
 		else
-			redirect_to conversation_path, alert: "Je hebt hier geen toegang tot."
+			redirect_to conversations_path, alert: "Je hebt hier geen toegang tot."
 		end
 	end
 
