@@ -2,14 +2,11 @@
 
 	<div id="user_stars"></div>
 	<br>
-
 	<div class="form-group">
-
 		<%= f.text_area :comment, rows: 3, class: "form-control" %>
-
 	</div>
 
-	<%= f.hidden_field :training_id, value: @training.id %>
+		<%= f.hidden_field :training_id, value: @training.id %>
 
 	<div class="actions">
 		<%= f.submit "Create", class: "btn btn-primary" %>

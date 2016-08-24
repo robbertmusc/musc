@@ -63,14 +63,14 @@
 			</div>
 		</div>
 
-		<% if false %>
+		<% if true %>
 		<!-- Reviews -->
 		<div class="row">
 			<div class="col-md-12">
 				<h3>Reviews <span id="average_rating"></span> (<%= @reviews.count %>)</h3>
 				<div class="container">
 					<div>
-						<%= render 'reviews/form' if @booked && !@hasReview %>
+						<%= render 'reviews/form' if @booked > 0 && !@hasReview %>
 					</div>
 					<div>
 						<%= render 'reviews/list' %>
@@ -124,9 +124,7 @@
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-heading preview">
-
 							<%= image_tag training.photos[0].image.url(:medium) if training.photos.length > 0 %>
-
 						</div>
 						<div class="panel-body">
 							<%= link_to training.tr_name, training %><br>
@@ -137,7 +135,7 @@
 			<% end %>
 		</div>
 
-		<!-- Foto caroussel -->
+		<!-- Foto Caroussel -->
 		<h3>Foto's</h3>
 		<div class="row">
 			<div class="col-md-12">
@@ -201,21 +199,13 @@
 								
 
 								<div class="col-md-3 right">
-								<% if Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? %>	
-									Al geboekt
-								<% elsif thrill.reservations.length == thrill.training.tr_max_attendants %>
-									Vol
+									<% if Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? %>	
+										Al geboekt
+									<% elsif thrill.reservations.length == thrill.training.tr_max_attendants %>
+										Vol
 
-								<% else %>
-									<%= link_to "Inschrijven", thrill_reservations_path(thrill), method: :post , class: "btn btn-primary" %>
-								<% end %>
-
-									<% if false %>
-										<%= form_for ([thrill, thrill.reservations]) do |f| %>
-											<%= f.hidden_field :user_id, value: current_user.id %>
-											<%= f.hidden_field :thrill_id, value: thrill.id %>
-											<%= f.submit "Leg vast", class: "btn btn-primary" %>
-										<% end %>
+									<% else %>
+										<%= link_to "Inschrijven", thrill_reservations_path(thrill), method: :post , class: "btn btn-primary" %>
 									<% end %>
 								</div>
 							</div>

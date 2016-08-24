@@ -12,25 +12,19 @@ class TrainingsController < ApplicationController
   def show
     @photos = @training.photos
     @thrills = @training.thrills
+
 #    @thrill = Thrill.find(params[thrill_id])
-
-
-
-
-
 # => te repareren. Voor iedere thrill moet de check gemaakt worden of de gebruiker al is ingeschreven
-
-
 #   @booked = Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? if current_user
-
 #   @thrills.each do |thrill|
-
 #      thrill.booked = Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? if current_user
-
 #   end
-
-#   @reviews = @training.reviews
-#   @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
+#   @booked = Reservation.where("thrill.training_id = ? AND user_id = ?", @training.id, current_user.id).present? if current_user
+# => mogelijk @booked nog aanpassen door ook te zeggen AND thrills: { thrilldate < Time.now}
+   @booked = @thrills.joins(:reservations).where(reservations: { user_id: current_user.id } ).length
+    
+   @reviews = @training.reviews
+   @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
   end
 
   def new
