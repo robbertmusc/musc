@@ -29,6 +29,7 @@ class PagesController < ApplicationController
 
   		@trainings.each do |training|
 
+#     Nog toe te voegen dat volle trainingen niet worden weergegeven
 #     num_thrills = training.thrills.where("(? = thrilldate)" , date).length
 #  		num_thrills = training.thrills.where("(? = thrilldate) AND (? != thrills.reservations.length)", date, training.tr_max_attendants).length
 #     num_full_thrills = training.thrills.where("? = thrill.reservations.length", training.tr_max_attendants).length
