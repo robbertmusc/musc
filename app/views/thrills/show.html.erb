@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="sidebar-list">
+			<li class="sidebar-item"><%= link_to "Jouw trainingen", trainings_path, class: "sidebar-link active" %></li>
+			<li class="sidebar-item"><%= link_to "Jouw reserveringen", thrills_path, class: "sidebar-link" %></li>
+			<li class="sidebar-item"><%= link_to "Jouw deelnames", your_trips_path, class: "sidebar-link" %></li>	
+		</ul>
+	</div>
+
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Deelnemers voor <%= @thrill.training.tr_name %> <%= @thrill.thrilldate %> <%= @thrill.reservations.length %> / <%= @thrill.training.tr_max_attendants %></div>
+
+			<div class="panel-body">
+
+				<% @thrill.reservations.each do |reservation| %>
+
+					<div class="row">
+						<div class="col-md-6">
+							<%= image_tag avatar_url(reservation.user), class: "img-circle avatar-medium" %>
+							<%= link_to reservation.user.fullname, reservation.user %>
+						</div>
+						<div class="col-md-3">
+						</div>
+						<div class="col-md-2">
+						</div>
+					</div>
+					<hr>
+					
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

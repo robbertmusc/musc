@@ -1,32 +1,35 @@
-<% if @thrills %>
 <div class="row">
-	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Jouw thrills
-			</div>
-
+				Aankomende trainingen door jou </div>
 			<div class="panel-body">
-
-				<% @thrills.each do |thrill| %>
+				<% current_user.thrills.order("thrilldate ASC").where('? <= thrilldate', Date.today).each do |thrill| %>
 					<div class="row">
 						<div class="col-md-3">
-							<%= thrill.thrilldate.strftime("%a %e %b '%y") %> <%= thrill.thrillhr %>:<%= thrill.thrillmin %>
+							<%= thrill.thrilldate%>
+						</div>
+						<div class="col-md-4">
+							<%= thrill.training.tr_name %>
 						</div>
 						<div class="col-md-2">
 							<%= thrill.reservations.length %> / <%= thrill.training.tr_max_attendants %>
-						</div>						
-						<div class="col-md-3 right">
-							<span class="pull-right">
-								<%= link_to "Delete", [thrill] , method: :delete, data: {confirm: "Zeker weten?"} %>
-							</span>
 						</div>
+						<div class="col-md-2">
+							<%= link_to "Deelnemers", thrill %>
+						</div>
+						<div class="col-md-1">
+							<% if thrill.reservations.length == 0 %>
+								<%= link_to "Delete", [thrill] , method: :delete, data: {confirm: "Zeker weten?"} %>
+							<% end %>
 
+						</div>
 					</div>
 					<hr>
+					
 				<% end %>
 			</div>
 		</div>
-	</div>
 </div>
-<% end %>
+
+
+

@@ -1,10 +1,11 @@
+<!-- deze gebruiken we niet meer, zit in index.html.erb -->
 
 <%= form_for( @thrill.new_record? ? [@training, @thrill] : @thrill ) do |f| %>
 
 
 <div class="col-md-6">
 	<div class="form-group">
-		<%= f.text_field :thrilldate, placeholder: "Datum", class: "form-control" %>
+		<%= f.text_field :thrilldate, placeholder: 'Datum', class: 'form-control' %>
 	</div>
 </div>
 
@@ -27,5 +28,16 @@
 </div>
 <br>
 
-
 <% end %>
+
+<script>
+$(function() {
+
+			$('#thrill_thrilldate').datepicker({
+				dateFormat: 'dd-mm-yy',
+				minDate: 0,
+				maxDate: '3m',
+
+			});
+});
+</script>

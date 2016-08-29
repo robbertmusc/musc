@@ -5,23 +5,24 @@
 		<strong><%= @other.fullname %></strong>
 		<%= link_to "View Profile", @other, class: "btn btn-default wide" %>
 	</div>
+	<br>
 
 	<div class="col-md-9">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Conversation with <%= @other.fullname %>
+				Praatje met <%= @other.fullname %>
 			</div>
 			<div class="panel-body">
 				<div class="container">
 
 					<%= form_for [@conversation, @conversation.messages.new], remote: true do |f| %>
 					<div class= "form-group">
-						<%= f.text_area :content, placeholder: "Add a personal message", class: "form-control" %>
+						<%= f.text_area :content, placeholder: "Stuur een berichtje", class: "form-control" %>
 					</div>
 					<%= f.hidden_field :user_id, value: current_user.id %>
 
 					<div class="actions">
-						<%= f.submit "Send message", class: "btn btn-primary" %>
+						<%= f.submit "Verstuur", class: "btn btn-primary" %>
 					</div>
 					<% end %>
 				</div>

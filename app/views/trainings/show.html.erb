@@ -58,12 +58,54 @@
 		<!-- About -->
 		<div class="row">
 			<div class="col-md-12">
-				<h2>Over deze training</h2>
+				<h3>Over deze training</h3>
 				<p><%= @training.tr_description %></p>
 			</div>
 		</div>
 
-		<% if true %>
+		<!-- Reserveringen -->
+		<h3>Datums</h3>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Beschikbare datums
+					</div>
+
+					<div class="panel-body">
+
+						<% @thrills.each do |thrill| %>
+							<div class="row">
+								<div class="col-md-5">
+									<%= thrill.thrilldate.strftime("%a %e %b '%y") %> <%= thrill.thrillhr %>:<%= thrill.thrillmin %>
+								</div>
+								<div class="col-md-2">
+									<%= thrill.reservations.length %> / <%= thrill.training.tr_max_attendants %>
+								</div>
+								
+
+								<div class="col-md-3 right">
+									<% if Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? %>	
+										Al geboekt
+									<% elsif thrill.reservations.length == thrill.training.tr_max_attendants %>
+										Vol
+
+									<% else %>
+										<%= link_to "Inschrijven", thrill_reservations_path(thrill), method: :post , class: "btn btn-primary" %>
+									<% end %>
+								</div>
+								<div class="col-md-2">
+									€ <%= thrill.training.tr_price %>
+								</div>
+							</div>
+							<hr>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+
 		<!-- Reviews -->
 		<div class="row">
 			<div class="col-md-12">
@@ -79,7 +121,7 @@
 				</div>
 			</div>
 		</div>
-		<% end %>
+
 
 		<!-- Google Map -->
 		<div class="row">
@@ -172,47 +214,6 @@
 				  </a>
 				</div>
 
-			</div>
-		</div>
-
-		<br>
-
-		<!-- Reserveringen -->
-		<h3>Reserveringen</h3>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Beschikbare thrills
-					</div>
-
-					<div class="panel-body">
-
-						<% @thrills.each do |thrill| %>
-							<div class="row">
-								<div class="col-md-5">
-									<%= thrill.thrilldate.strftime("%a %e %b '%y") %> <%= thrill.thrillhr %>:<%= thrill.thrillmin %>
-								</div>
-								<div class="col-md-2">
-									<%= thrill.reservations.length %> / <%= thrill.training.tr_max_attendants %>
-								</div>
-								
-
-								<div class="col-md-3 right">
-									<% if Reservation.where("thrill_id = ? AND user_id = ?", thrill.id, current_user.id).present? %>	
-										Al geboekt
-									<% elsif thrill.reservations.length == thrill.training.tr_max_attendants %>
-										Vol
-
-									<% else %>
-										<%= link_to "Inschrijven", thrill_reservations_path(thrill), method: :post , class: "btn btn-primary" %>
-									<% end %>
-								</div>
-							</div>
-							<hr>
-						<% end %>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

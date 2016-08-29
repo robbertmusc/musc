@@ -28,13 +28,12 @@ class ReservationsController < ApplicationController
 	end
 
 	def your_trips
-		@trips = current_user.reservations
+		@reservations = current_user.reservations
 	end
 
 	def your_reservations
 		@trainings = current_user.trainings
 	end
-
 
 	private
 		def reservation_params

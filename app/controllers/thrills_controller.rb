@@ -1,6 +1,6 @@
 class ThrillsController < ApplicationController
 
-before_action :set_training!, only: [:new, :create, :index]
+# before_action :set_training!, only: []
 before_action :set_thrill!, only: [:show, :edit, :update, :destroy]
 
 
@@ -20,10 +20,15 @@ before_action :set_thrill!, only: [:show, :edit, :update, :destroy]
 	end
 
 	def create
-		@thrill = @training.thrills.new(thrill_params)
+		@thrill = Thrill.new(thrill_params)
+		@trainings = current_user.trainings
 		
 		if @thrill.save
-			redirect_to new_training_thrill_path(@training), notice: "De thrill is toegevoegd"
+#			redirect_to thrills_path
+			flash[:notice] = "De thrill is toegevoegd"
+
+			respond_to :js
+		
 		else
 			render :new
 		end
@@ -31,10 +36,32 @@ before_action :set_thrill!, only: [:show, :edit, :update, :destroy]
 	end
 
 	def index
-		@thrills = @training.thrills
+#      if current_user.id == @training.user.id
+# => voor het formulier	    
+#	    @thrill = @training.thrills.new
+# => aparte sytax hier gebruikt zodat je niet een extra datum in de lijst ziet
+		@trainings = current_user.trainings
+
+		@thrill = Thrill.new
+#	    @training = @thrill.training
+
+# => voor de lijst
+#	    @thrills = @training.thrills
+#	  else
+#        redirect_to root_path, notice: "Geen toegang"
+#     end
+
+
+#		thrill = training.thrill
+#		@thrills = Thrill.where('? = @thrill.training.user_id', current_user.id).all
+
 	end
 
 	def show
+	  if current_user.id == @thrill.training.user.id
+      else
+        redirect_to root_path, notice: "Je hebt hier helaas geen toegang tot"
+      end
 	end
 
 	def edit
@@ -53,7 +80,7 @@ before_action :set_thrill!, only: [:show, :edit, :update, :destroy]
 		@training = @thrill.training
 		@thrill.destroy
 
-		redirect_to new_training_thrill_path(@training), notice: "De thrill is verwijderd"
+		redirect_to thrills_path, notice: "De thrill is verwijderd"
 	end
 
 	private

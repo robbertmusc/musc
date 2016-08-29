@@ -1,9 +1,11 @@
+<!-- deze gebruiken we niet, zit in reservations/your_trips -->
+
 <div class="row">
 	<div class="col-md-3">
 		<ul class="sidebar-list">
 			<li class="sidebar-item"><%= link_to "Jouw lijst", trainings_path, class: "sidebar-link" %></li>
 			<li class="sidebar-item"><%= link_to "Jouw reserveringen", your_reservations_path, class: "sidebar-link" %></li>
-			<li class="sidebar-item"><%= link_to "Jouw trainingen", your_trips_path, class: "sidebar-link active" %></li>
+			<li class="sidebar-item"><%= link_to "Jouw trainingen", your_trips_path, class: "sidebar-link active" %></li>			
 		</ul>
 	</div>
 
@@ -13,8 +15,10 @@
 				Jouw trainingen </div>
 
 			<div class="panel-body">
+
 				<% @reservations.each do |reservation| %>
 					<div class="row">
+
 						<div class="col-md-2">
 							<%= reservation.thrill.thrilldate.strftime('%v') %>
 						</div>
@@ -29,8 +33,11 @@
 							<% end %>
 						</div>
 						<div class="col-md-2 right">
-							<h4>€ <%= reservation.thrill.training.tr_price %></h4>
+							<h4>€ <%= reservation.thrill.price %></h4>
 						</div>
+
+
+
 					</div>
 					<hr>
 				<% end %>

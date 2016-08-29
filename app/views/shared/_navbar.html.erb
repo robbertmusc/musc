@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Musc</a>
+          <%= link_to "Musc", root_path, class: "navbar-brand" %>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
@@ -26,17 +26,16 @@
             <% else %>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <%= image_tag avatar_url(current_user), class:  "img-circle avatar-small" %>&nbsp;
+                  <%= image_tag avatar_url(current_user), class: "img-circle avatar-small" %>&nbsp;
                   <%= current_user.fullname %> <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu">
                   <li><%= link_to "Jouw trainingen", trainings_path %></li>
-                  <li><%= link_to "Jouw trainingen te geven", your_reservations_path %></li>
+                  <li><%= link_to "Jouw sessies", thrills_path %></li>
                   <li><%= link_to "Jouw trainingen to do", your_trips_path %></li>
                   <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
                   <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
                   <li><a href="#">Account setting</a></li>
                   <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
                 </ul>

@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-  	@trainings = Training.limit(1)
+  	@trainings = Training.limit(3)
   end
 
   def search
@@ -22,18 +22,34 @@ class PagesController < ApplicationController
 
   	@arrTrainings = @trainings.to_a
 
-  	if (params[:date] && !params[:date].empty?)
+    if (params[:startdate] && params[:enddate] && !params[:startdate].empty? & !params[:enddate].empty?)
 
-  		date = Date.parse(params[:date])
+      startdate = Date.parse(params[:startdate])
+      enddate = Date.parse(params[:enddate])
 
   		@trainings.each do |training|
 
-  			not_available = training.reservations.where("(? = date)", date).limit(1)
+#     num_thrills = training.thrills.where("(? = thrilldate)" , date).length
+#  		num_thrills = training.thrills.where("(? = thrilldate) AND (? != thrills.reservations.length)", date, training.tr_max_attendants).length
+#     num_full_thrills = training.thrills.where("? = thrill.reservations.length", training.tr_max_attendants).length
+      num_thrills = training.thrills.where("(? <= thrilldate AND ? >= thrilldate)", startdate, enddate).length
 
-  			if not_available.length > 0
+#      training.thrills.joins(:reservations).includes(:reservations).group("thrills.id").select("thrills.*, thrilldate, count(reservations.id) as rescount")
+#      training.thrills.joins(:reservations).select("thrills.*, thrilldate, COUNT(*) AS rescount").group("thrills.id")
+
+
+  			if (num_thrills == 0) 
   				@arrTrainings.delete(training)
+
   			end
   		end
   	end
   end
 end
+
+# Welke zaken moeten gelden voor de datum:
+# min 1 thrill binnen de gestelde datums
+# thrill.reservations.length == thrill.training.tr_max_attendants
+
+# knikker een training eruit indien training.thrills(where thrilldate = date).length = 0
+# ook indien training.thrills.where (thrilldate = date ) = training.tr_max_attendan

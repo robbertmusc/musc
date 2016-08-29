@@ -44,9 +44,14 @@ class TrainingsController < ApplicationController
 
       @photos = @training.photos
 
-      redirect_to edit_training_path(@training), notice: "Saved..."
+      redirect_to trainings_path, notice: "Saved..."
     else
-      render :new
+#      if @training.errors.any?
+#        @training.errors.each do |message|
+#          flash[:notice] = message
+#        end
+#      end
+      render :edit
     end
   end
 
@@ -74,9 +79,18 @@ class TrainingsController < ApplicationController
 
           @photos = @training.photos
 
-          redirect_to edit_training_path(@training), notice: "Updated..."
+          redirect_to trainings_path, notice: "Updated..."
         else
-          render:edit
+#          if @training.errors.any?
+#            @training.errors.each do |error|
+#              flash[:notice] = error.message
+#            end
+#          end
+#          @training.errors.full_messages.each do |msg|  
+#            flash[:notice] = msg
+#          end
+          render :edit
+          flash[:notice] = "Niet opgeslagen. Sommige velden zijn niet goed ingevuld" 
         end
   end
 

@@ -3,8 +3,8 @@ class Thrill < ApplicationRecord
   has_many :reservations
   has_many :users, through: :reservations
 
-  validates :thrilldate, presence: false
+  validates :thrilldate, presence: true
   validates :thrillhr, presence: true
-  validates :thrillmin, presence: false
+  validates :thrillmin, presence: true
   
 end
